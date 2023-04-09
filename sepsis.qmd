@@ -15,6 +15,9 @@ source("sepsis_monitor_functions.R")
 
 install.packages("tidyverse")
 library(tidyverse)
+
+install.packages("googledrive")
+library(googledrive)
 ```
 **Report Last Updated at:** `r Sys.time()`
 ```{r include = FALSE, echo = FALSE, warning=FALSE}
