@@ -14,7 +14,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 source("sepsis_monitor_functions.R")
 
 library(readr)
+
+install.packages("tictoc")
 library(tictoc)
+
+install.packages("googledrive")
 library(googledrive)
 library(DT)
 library(knitr)
