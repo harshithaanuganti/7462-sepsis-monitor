@@ -12,7 +12,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r}
 source("sepsis_monitor_functions.R")
-install.packages('tidyverse')
+install.packages("tidyverse")
 library(tidyverse)
 library(readr)
 library(data.table) ## For the fread function
