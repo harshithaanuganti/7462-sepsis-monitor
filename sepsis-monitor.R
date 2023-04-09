@@ -4,6 +4,10 @@ library(data.table) ## For the fread function
 library(lubridate)
 library(tictoc)
 library(googledrive) 
+library(dplyr)
+library(gt)
+library(knitr)
+library(ggplot2)
 
 source("sepsis_monitor_functions.R")
 
