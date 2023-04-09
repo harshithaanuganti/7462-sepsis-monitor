@@ -13,9 +13,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```{r}
 source("sepsis_monitor_functions.R")
 
-install.packages("tidyverse")
-library(tidyverse)
-
 library(readr)
 library(data.table) ## For the fread function
 library(lubridate)
@@ -23,6 +20,9 @@ library(tictoc)
 library(googledrive)
 library(DT)
 library(knitr)
+
+install.packages("tidyverse")
+library(tidyverse)
 ```
 **Report Last Updated at:** `r Sys.time()`
 ```{r include = FALSE, echo = FALSE, warning=FALSE}
