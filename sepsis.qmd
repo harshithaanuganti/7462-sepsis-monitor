@@ -18,6 +18,8 @@ library(tidyverse)
 
 install.packages("googledrive")
 library(googledrive)
+
+library(DT)
 ```
 **Report Last Updated at:** `r Sys.time()`
 ```{r include = FALSE, echo = FALSE, warning=FALSE}
