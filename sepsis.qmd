@@ -1,0 +1,82 @@
+---
+title: "Sepsis Report"
+author: "SriHarshitha Anuganti"
+format: html
+editor: visual
+embed-resources: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
+```
+
+```{r}
+source("sepsis_monitor_functions.R")
+library(tidyverse)
+library(readr)
+library(data.table) ## For the fread function
+library(lubridate)
+library(tictoc)
+library(googledrive)
+library(DT)
+library(knitr)
+```
+**Report Last Updated at:** `r Sys.time()`
+```{r include = FALSE, echo = FALSE, warning=FALSE}
+drive_deauth()
+sepsis_filepath <- "https://drive.google.com/file/d/1AIRRui04zU80qi6GCEPi-jZu60FkxV5d/view?usp=sharing"
+new_data <- updateData(sepsis_filepath)
+most_recent_data <- new_data %>%
+  group_by(PatientID) %>%
+  filter(obsTime == max(obsTime))
+#print(most_recent_data)
+```
+## Patients with Sepsis
+```{r}
+sepsis_patients <- most_recent_data %>%
+  filter(SepsisLabel == 1) %>%
+  select(PatientID,HR,Temp,Resp) %>%
+  rename(`Heart Rate`="HR",
+        `Body Temperature`="Temp",
+        `Respiratory Rate`="Resp")
+datatable(sepsis_patients)
+```
+## All Patients' Vital history in ICU
+```{r}
+sepsis_vitals <- new_data %>%
+  filter(SepsisLabel==1)
+
+#Heart rate
+ggplot(sepsis_vitals, aes(x = obsTime, y = HR)) +
+  geom_line(color = "red", linetype = "dotted") +
+  labs(x = "Observation Time", y = "Heart Rate") +
+  ggtitle("Sepsis Patients' Heart Rate") +
+  theme_minimal()
+
+#Body Temperature
+ggplot(sepsis_vitals, aes(x = obsTime, y = Temp)) +
+  geom_line(color = "red", linetype = "dotted") +
+  labs(x = "Observation Time", y = "Body Temperature") +
+  ggtitle("Sepsis Patients' Body Temperature") +
+  theme_minimal()
+
+#Respiratory Rate
+ggplot(sepsis_vitals, aes(x = obsTime, y = Resp)) +
+  geom_line(color = "red", linetype = "dotted") +
+  labs(x = "Observation Time", y = "Heart Rate") +
+  ggtitle("Sepsis Patients' Respiratory Rate") +
+  theme_minimal()
+
+```
+
+## All Patients' change in vitals between the last two measurents 
+```{r}
+patients_diffvitals <- new_data %>%
+  group_by(PatientID) %>%
+  arrange(desc(obsTime)) %>%
+  slice(1:2) %>%
+  summarise(`Heart Rate Diff` = HR[1] - HR[2],
+            `Body Temperature Diff` = Temp[1] - Temp[2],
+            `Respiratory Rate Diff` = Resp[1] - Resp[2])
+datatable(patients_diffvitals)
+```
