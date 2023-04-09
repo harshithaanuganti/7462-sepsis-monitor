@@ -38,6 +38,13 @@ jobs:
                any::readr
                any::lubridate
                any::forcats
+               any::ggplot2
+               any::googledrive
+               any::data.table
+               any::tidyr
+               any::gt
+               any::tictoc
+               any::tidyverse
 
       - name: Render document
         uses: quarto-dev/quarto-actions/render@v2
