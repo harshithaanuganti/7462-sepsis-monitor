@@ -12,6 +12,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r}
 source("sepsis_monitor_functions.R")
+
+install.packages('googledrive')
 library(googledrive)
 ```
 **Report Last Updated at:** `r Sys.time()`
